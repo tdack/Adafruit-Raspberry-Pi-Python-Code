@@ -7,7 +7,7 @@
 #
 
 from time import sleep
-
+import Adafruit_BBIO.GPIO as GPIO
 
 class Adafruit_CharLCD(object):
 
@@ -53,18 +53,12 @@ class Adafruit_CharLCD(object):
     LCD_5x10DOTS            = 0x04
     LCD_5x8DOTS             = 0x00
 
-    def __init__(self, pin_rs=25, pin_e=24, pins_db=[23, 17, 21, 22], GPIO=None):
-        # Emulate the old behavior of using RPi.GPIO if we haven't been given
-        # an explicit GPIO interface to use
-        if not GPIO:
-            import RPi.GPIO as GPIO
-            GPIO.setwarnings(False)
+    def __init__(self, pin_rs="P8_31", pin_e="P8_32", pins_db=["P8_27","P8_28","P8_29","P8_30"]):
         self.GPIO = GPIO
         self.pin_rs = pin_rs
         self.pin_e = pin_e
         self.pins_db = pins_db
 
-        self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setup(self.pin_e, GPIO.OUT)
         self.GPIO.setup(self.pin_rs, GPIO.OUT)
 
@@ -137,7 +131,7 @@ class Adafruit_CharLCD(object):
         self.displaycontrol |= self.LCD_BLINKON
         self.write4bits(self.LCD_DISPLAYCONTROL | self.displaycontrol)
 
-    def DisplayLeft(self):
+    def scrollDisplayLeft(self):
         """ These commands scroll the display without changing the RAM """
         self.write4bits(self.LCD_CURSORSHIFT | self.LCD_DISPLAYMOVE | self.LCD_MOVELEFT)
 
@@ -206,5 +200,6 @@ class Adafruit_CharLCD(object):
 
 if __name__ == '__main__':
     lcd = Adafruit_CharLCD()
+    lcd.begin(16,2)
     lcd.clear()
     lcd.message("  Adafruit 16x2\n  Standard LCD")
