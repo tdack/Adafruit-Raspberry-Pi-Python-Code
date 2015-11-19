@@ -62,7 +62,7 @@ class Adafruit_HMC5883L(object):
     HMC5883_MAGGAIN_4_0                        = (0x80, 2.27)  # +/- 4.0
     HMC5883_MAGGAIN_4_7                        = (0xA0, 2.56)  # +/- 4.7
     HMC5883_MAGGAIN_5_6                        = (0xC0, 3.03)  # +/- 5.6
-    HMC5883_MAGGAIN_8_1                        = (0xE0, 4.53)  # +/- 8.1
+    HMC5883_MAGGAIN_8_1                        = (0xE0, 4.35)  # +/- 8.1
     
     HMC5883_MODE_CONTINUOUS                    = 0x00
     HMC5883_MODE_SINGLE                        = 0x01
